@@ -193,7 +193,7 @@ export function WaferScene() {
     <Canvas
       dpr={[1, 2]}
       gl={{ antialias: true }}
-      camera={{ position: STATIONS[0].cam, fov: 45 }}
+      camera={{ position: STATIONS[0]!.cam, fov: 45 }}
     >
       <color attach="background" args={["#fbf1de"]} />
       <fog attach="fog" args={["#fbf1de", 13, 30]} />
@@ -217,7 +217,7 @@ export function WaferScene() {
       {FLAVORS.map((f, idx) => (
         <ProductStop
           key={f.id}
-          station={STATIONS[idx + 1]}
+          station={STATIONS[idx + 1]!}
           flavor={f}
           seedRotation={idx * 0.7}
           waferTex={waferTex}
