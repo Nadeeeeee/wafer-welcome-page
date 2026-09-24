@@ -90,7 +90,7 @@ export function WaferSite() {
               <span className="inline-flex items-center gap-2 rounded-full bg-cocoa/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-cocoa">
                 Flavor 01 / {String(FLAVORS.length).padStart(2, "0")} · {cheese.tag}
               </span>
-              <h1 className="mt-5 font-display text-5xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
+              <h1 className="mt-5 font-display text-4xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
                 Meet the crunch.
                 <br />
                 <em className="font-semibold italic text-caramel">Discover six bold flavors!</em>
@@ -113,7 +113,7 @@ export function WaferSite() {
               <section
                 key={f.id}
                 id={`section-${i}`}
-                className="flex h-screen items-center px-6 sm:px-16"
+                className="flex h-screen items-start px-6 pt-28 sm:items-center sm:px-16 sm:pt-0"
               >
                 <div
                   className={`mx-auto flex w-full max-w-6xl ${
