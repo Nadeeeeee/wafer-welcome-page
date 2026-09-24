@@ -5,17 +5,17 @@ export const Route = createFileRoute("/")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Snap & Crumble — Impossibly Crisp Wafer Biscuits" },
+      { title: "Richese & Richoco — Discover Six Wafer Flavors" },
       {
         name: "description",
         content:
-          "Nine whisper-thin wafer layers, one slow-whipped cream. Scroll through four flavors of impossibly crisp wafer biscuits.",
+          "Explore six Richese, Richoco, and Nabati wafer packs in a scroll-driven product showcase, led by creamy cheese.",
       },
-      { property: "og:title", content: "Snap & Crumble — Impossibly Crisp Wafer Biscuits" },
+      { property: "og:title", content: "Richese & Richoco — Discover Six Wafer Flavors" },
       {
         property: "og:description",
         content:
-          "Nine whisper-thin wafer layers, one slow-whipped cream. Scroll through four flavors of impossibly crisp wafer biscuits.",
+          "Explore six Richese, Richoco, and Nabati wafer packs in a scroll-driven product showcase, led by creamy cheese.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -48,14 +48,14 @@ export function WaferSite() {
             href="#section-0"
             className="font-display text-lg font-bold tracking-tight text-cocoa"
           >
-            Snap &amp; Crumble<span className="text-caramel">.</span>
+            Nabati Wafers<span className="text-caramel">.</span>
           </a>
           <div className="flex items-center gap-7 text-sm font-medium text-cocoa/80">
             <a href="#section-1" className="hidden transition-colors hover:text-caramel sm:block">
               Flavors
             </a>
             <a
-              href="#section-5"
+              href={`#section-${SECTION_COUNT - 1}`}
               className="rounded-full bg-cocoa px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
             >
               Find a pack
@@ -86,16 +86,16 @@ export function WaferSite() {
               style={{ opacity: opacityFor(0), transform: `translateY(${shiftFor(0)}px)` }}
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-cocoa/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-cocoa">
-                New · Crisp-9 series
+                 Richese · Creamy Cheese
               </span>
               <h1 className="mt-5 font-display text-5xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
-                Snap the wafer.
+                 Meet the crunch.
                 <br />
-                <em className="font-semibold italic text-caramel">Crumble the day.</em>
+                 <em className="font-semibold italic text-caramel">Cheese comes first.</em>
               </h1>
               <p className="mx-auto mt-5 max-w-[46ch] text-pretty text-cocoa/70">
-                Nine whisper-thin layers, one slow-whipped cream. Scroll on —
-                every stop is a new way to crunch.
+                 Scroll through six bold wafer packs, starting with the iconic
+                 creamy cheese flavor.
               </p>
               <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">
                 ↓ scroll
@@ -123,7 +123,7 @@ export function WaferSite() {
                     style={{ opacity: opacityFor(i), transform: `translateY(${shiftFor(i)}px)` }}
                   >
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">
-                      Flavor {String(idx + 1).padStart(2, "0")} / 04
+                       Flavor {String(idx + 1).padStart(2, "0")} / {String(FLAVORS.length).padStart(2, "0")}
                     </span>
                     <div className="mt-3 flex items-center gap-2">
                       <span
@@ -145,7 +145,7 @@ export function WaferSite() {
           })}
 
           {/* Outro */}
-          <section id="section-5" className="flex h-screen items-end justify-center px-6 pb-[18vh]">
+           <section id={`section-${SECTION_COUNT - 1}`} className="flex h-screen items-end justify-center px-6 pb-[18vh]">
             <div
               className="text-center"
               style={{ opacity: opacityFor(5), transform: `translateY(${shiftFor(5)}px)` }}
@@ -154,7 +154,7 @@ export function WaferSite() {
                 Grab a pack.
               </h2>
               <p className="mx-auto mt-4 max-w-[40ch] text-pretty text-cocoa/70">
-                Four flavors, one impossible snap. Find us in the cookie aisle —
+                 Six flavors, one impossible snap. Find us in the cookie aisle —
                 or we'll bring the crunch to you.
               </p>
               <a
