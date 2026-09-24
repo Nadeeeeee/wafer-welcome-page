@@ -133,12 +133,35 @@ function ProductStop({
   useFrame(() => {
     if (!group.current) return;
     const currentSection = scrollState.progress * (STATIONS.length - 1);
-    group.current.visible = Math.abs(currentSection - sectionIndex) < 0.9;
+    group.current.visible = Math.round(currentSection) === sectionIndex;
   });
 
   return (
     <group ref={group} position={station.pos}>
       <ProductPack flavor={flavor} scale={scale} />
+    </group>
+  );
+}
+
+function ProductFinale({ station }: { station: (typeof STATIONS)[number] }) {
+  const group = useRef<THREE.Group>(null);
+
+  useFrame(() => {
+    if (!group.current) return;
+    const currentSection = scrollState.progress * (STATIONS.length - 1);
+    group.current.visible = Math.round(currentSection) === STATIONS.length - 1;
+  });
+
+  return (
+    <group ref={group} position={station.pos}>
+      {FLAVORS.slice(0, 3).map((flavor, index) => (
+        <group
+          key={flavor.id}
+          position={[(index - 1) * 2.3, index === 1 ? 0.7 : -0.25, index * -0.12]}
+        >
+          <ProductPack flavor={flavor} scale={0.62} />
+        </group>
+      ))}
     </group>
   );
 }
@@ -188,13 +211,7 @@ export function WaferScene() {
       })}
 
       {/* Outro: a fan of the range */}
-      <group position={outroStation.pos}>
-        {FLAVORS.slice(0, 3).map((flavor, index) => (
-          <group key={flavor.id} position={[(index - 1) * 2.3, index === 1 ? 0.7 : -0.25, index * -0.12]}>
-            <ProductPack flavor={flavor} scale={0.62} />
-          </group>
-        ))}
-      </group>
+      <ProductFinale station={outroStation} />
 
       <Environment resolution={64}>
         <Lightformer
