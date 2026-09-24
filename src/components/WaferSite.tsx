@@ -55,7 +55,7 @@ export function WaferSite() {
               Flavors
             </a>
             <a
-              href="#section-5"
+              href={`#section-${SECTION_COUNT - 1}`}
               className="rounded-full bg-cocoa px-4 py-2 text-sm font-semibold text-cream transition-transform hover:-translate-y-0.5"
             >
               Find a pack
