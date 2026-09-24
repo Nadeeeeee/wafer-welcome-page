@@ -5,4 +5,5 @@
 - [x] Build 3D scroll-driven wafer showcase (scene, camera rig, procedural wafer stacks)
 - [x] DOM overlay: hero, per-flavor copy sections, outro CTA, nav, progress dots
 - [x] Verify in browser via Playwright screenshots (scene visible, no console errors)
+- [x] Replace procedural wafers with six supplied product renders, led by Creamy Cheese
 

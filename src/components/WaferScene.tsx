@@ -1,12 +1,6 @@
 import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  ContactShadows,
-  Environment,
-  Float,
-  Lightformer,
-  RoundedBox,
-} from "@react-three/drei";
+import { Environment, Float, Image, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 import {
   FLAVORS,
@@ -16,54 +10,18 @@ import {
   smoothstep,
   type Flavor,
 } from "@/lib/scroll-store";
-import { createWaferTexture } from "@/lib/wafer-textures";
 
 const lerpK = (k: number, delta: number) => 1 - Math.exp(-k * delta);
 
-function WaferStack({
-  flavor,
-  waferTex,
-  seedRotation = 0,
-}: {
-  flavor: Flavor;
-  waferTex: THREE.CanvasTexture;
-  seedRotation?: number;
-}) {
-  const layers = [];
-  // 5 wafers + 4 cream layers, stacked bottom-up.
-  let y = -0.75;
-  for (let i = 0; i < 5; i++) {
-    layers.push(
-      <RoundedBox
-        key={`w${i}`}
-        args={[2.3, 0.14, 2.3]}
-        radius={0.05}
-        smoothness={3}
-        position={[0, y + 0.07, 0]}
-      >
-        <meshStandardMaterial map={waferTex} roughness={0.75} />
-      </RoundedBox>,
-    );
-    y += 0.14;
-    if (i < 4) {
-      layers.push(
-        <RoundedBox
-          key={`c${i}`}
-          args={[2.34, 0.2, 2.34]}
-          radius={0.09}
-          smoothness={3}
-          position={[0, y + 0.1, 0]}
-        >
-          <meshStandardMaterial color={flavor.cream} roughness={0.32} />
-        </RoundedBox>,
-      );
-      y += 0.2;
-    }
-  }
-
+function ProductPack({ flavor, scale = 1 }: { flavor: Flavor; scale?: number }) {
   return (
-    <Float speed={1.6} rotationIntensity={0.22} floatIntensity={0.9}>
-      <group rotation={[0.05, seedRotation, 0.05]}>{layers}</group>
+    <Float speed={1.35} rotationIntensity={0.08} floatIntensity={0.45}>
+      <Image
+        url={flavor.image}
+        transparent
+        toneMapped={false}
+        scale={[5.4 * scale, 4.05 * scale]}
+      />
     </Float>
   );
 }
@@ -84,8 +42,9 @@ function CameraRig() {
     const t = scrollState.progress * (STATIONS.length - 1);
     const i = Math.min(Math.floor(t), STATIONS.length - 2);
     const f = smoothstep(t - i);
-    const A = STATIONS[i]!;
-    const B = STATIONS[i + 1]!;
+    const A = STATIONS[i];
+    const B = STATIONS[i + 1];
+    if (!A || !B) return;
 
     rig.camTarget.set(
       THREE.MathUtils.lerp(A.cam[0], B.cam[0], f),
@@ -161,39 +120,28 @@ function CrumbField() {
 function ProductStop({
   station,
   flavor,
-  seedRotation,
-  waferTex,
 }: {
   station: (typeof STATIONS)[number];
   flavor: Flavor;
-  seedRotation: number;
-  waferTex: THREE.CanvasTexture;
 }) {
   return (
     <group position={station.pos}>
-      <WaferStack flavor={flavor} waferTex={waferTex} seedRotation={seedRotation} />
-      <ContactShadows
-        position={[0, -1.4, 0]}
-        scale={7}
-        blur={2.6}
-        opacity={0.32}
-        far={3}
-        resolution={256}
-        frames={1}
-        color="#8a5a2b"
-      />
+      <ProductPack flavor={flavor} />
     </group>
   );
 }
 
 export function WaferScene() {
-  const waferTex = useMemo(() => createWaferTexture(), []);
+  const cheese = FLAVORS[0];
+  const firstStation = STATIONS[0];
+  const outroStation = STATIONS[STATIONS.length - 1];
+  if (!cheese || !firstStation || !outroStation) return null;
 
   return (
     <Canvas
       dpr={[1, 2]}
       gl={{ antialias: true }}
-      camera={{ position: STATIONS[0]!.cam, fov: 45 }}
+      camera={{ position: firstStation.cam, fov: 45 }}
     >
       <color attach="background" args={["#fbf1de"]} />
       <fog attach="fog" args={["#fbf1de", 13, 30]} />
@@ -207,44 +155,22 @@ export function WaferScene() {
 
       {/* Hero: signature vanilla stack, sits low-center under the headline */}
       <ProductStop
-        station={STATIONS[0]!}
-        flavor={FLAVORS[0]!}
-        seedRotation={0.3}
-        waferTex={waferTex}
+        station={firstStation}
+        flavor={cheese}
       />
 
-      {/* Four flavor stops */}
+      {/* Product stops */}
       {FLAVORS.map((f, idx) => (
-        <ProductStop
-          key={f.id}
-          station={STATIONS[idx + 1]!}
-          flavor={f}
-          seedRotation={idx * 0.7}
-          waferTex={waferTex}
-        />
+        STATIONS[idx + 1] ? <ProductStop key={f.id} station={STATIONS[idx + 1]} flavor={f} /> : null
       ))}
 
-      {/* Outro: trio of stacks */}
-      <group position={STATIONS[5]!.pos}>
-        <group position={[-1.7, -0.5, 0.3]} scale={0.85}>
-          <WaferStack flavor={FLAVORS[0]!} waferTex={waferTex} seedRotation={0.5} />
-        </group>
-        <group position={[1.6, -0.3, -0.4]} scale={0.8}>
-          <WaferStack flavor={FLAVORS[3]!} waferTex={waferTex} seedRotation={1.4} />
-        </group>
-        <group position={[0.1, 0.6, 0.7]} scale={0.9}>
-          <WaferStack flavor={FLAVORS[2]!} waferTex={waferTex} seedRotation={2.2} />
-        </group>
-        <ContactShadows
-          position={[0, -1.6, 0]}
-          scale={10}
-          blur={2.8}
-          opacity={0.3}
-          far={3}
-          resolution={256}
-          frames={1}
-          color="#8a5a2b"
-        />
+      {/* Outro: a fan of the range */}
+      <group position={outroStation.pos}>
+        {FLAVORS.slice(0, 3).map((flavor, index) => (
+          <group key={flavor.id} position={[(index - 1) * 2.3, index === 1 ? 0.7 : -0.25, index * -0.12]}>
+            <ProductPack flavor={flavor} scale={0.62} />
+          </group>
+        ))}
       </group>
 
       <Environment resolution={64}>
