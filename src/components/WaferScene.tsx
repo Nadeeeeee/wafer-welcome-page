@@ -104,7 +104,7 @@ function CameraRig() {
 
     // Blend the scene background + fog tint toward the active section color.
     const active = Math.min(Math.round(t), SECTION_BG.length - 1);
-    rig.bg.set(SECTION_BG[active]);
+    rig.bg.set(SECTION_BG[active] ?? "#fbf1de");
     const bg = state.scene.background as THREE.Color | null;
     if (bg) bg.lerp(rig.bg, lerpK(2.5, delta));
     const fog = state.scene.fog as THREE.Fog | null;
