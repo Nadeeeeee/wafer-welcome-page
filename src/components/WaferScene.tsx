@@ -84,8 +84,8 @@ function CameraRig() {
     const t = scrollState.progress * (STATIONS.length - 1);
     const i = Math.min(Math.floor(t), STATIONS.length - 2);
     const f = smoothstep(t - i);
-    const A = STATIONS[i];
-    const B = STATIONS[i + 1];
+    const A = STATIONS[i]!;
+    const B = STATIONS[i + 1]!;
 
     rig.camTarget.set(
       THREE.MathUtils.lerp(A.cam[0], B.cam[0], f),
