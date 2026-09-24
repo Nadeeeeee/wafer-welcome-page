@@ -208,7 +208,7 @@ export function WaferScene() {
       {/* Hero: signature vanilla stack, sits low-center under the headline */}
       <ProductStop
         station={STATIONS[0]}
-        flavor={FLAVORS[0]}
+        flavor={FLAVORS[0]!}
         seedRotation={0.3}
         waferTex={waferTex}
       />
@@ -227,13 +227,13 @@ export function WaferScene() {
       {/* Outro: trio of stacks */}
       <group position={STATIONS[5].pos}>
         <group position={[-1.7, -0.5, 0.3]} scale={0.85}>
-          <WaferStack flavor={FLAVORS[0]} waferTex={waferTex} seedRotation={0.5} />
+          <WaferStack flavor={FLAVORS[0]!} waferTex={waferTex} seedRotation={0.5} />
         </group>
         <group position={[1.6, -0.3, -0.4]} scale={0.8}>
-          <WaferStack flavor={FLAVORS[3]} waferTex={waferTex} seedRotation={1.4} />
+          <WaferStack flavor={FLAVORS[3]!} waferTex={waferTex} seedRotation={1.4} />
         </group>
         <group position={[0.1, 0.6, 0.7]} scale={0.9}>
-          <WaferStack flavor={FLAVORS[2]} waferTex={waferTex} seedRotation={2.2} />
+          <WaferStack flavor={FLAVORS[2]!} waferTex={waferTex} seedRotation={2.2} />
         </group>
         <ContactShadows
           position={[0, -1.6, 0]}
