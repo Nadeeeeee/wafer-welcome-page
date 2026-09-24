@@ -207,7 +207,7 @@ export function WaferScene() {
 
       {/* Hero: signature vanilla stack, sits low-center under the headline */}
       <ProductStop
-        station={STATIONS[0]}
+        station={STATIONS[0]!}
         flavor={FLAVORS[0]!}
         seedRotation={0.3}
         waferTex={waferTex}
@@ -225,7 +225,7 @@ export function WaferScene() {
       ))}
 
       {/* Outro: trio of stacks */}
-      <group position={STATIONS[5].pos}>
+      <group position={STATIONS[5]!.pos}>
         <group position={[-1.7, -0.5, 0.3]} scale={0.85}>
           <WaferStack flavor={FLAVORS[0]!} waferTex={waferTex} seedRotation={0.5} />
         </group>
