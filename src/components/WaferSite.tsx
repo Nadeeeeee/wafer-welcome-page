@@ -33,6 +33,8 @@ export function WaferSite() {
   const active = Math.min(Math.round(t), SECTION_COUNT - 1);
   const opacityFor = (i: number) => Math.max(0, 1 - Math.abs(t - i) * FADE_K);
   const shiftFor = (i: number) => (t - i) * 60;
+  const cheese = FLAVORS[0];
+  if (!cheese) return null;
 
   return (
     <div className="relative">
@@ -86,16 +88,16 @@ export function WaferSite() {
               style={{ opacity: opacityFor(0), transform: `translateY(${shiftFor(0)}px)` }}
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-cocoa/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-cocoa">
-                 Richese · Creamy Cheese
+                Flavor 01 / {String(FLAVORS.length).padStart(2, "0")} · {cheese.tag}
               </span>
-              <h1 className="mt-5 font-display text-5xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
-                 Meet the crunch.
+              <h1 className="mt-5 font-display text-4xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
+                Meet the crunch.
                 <br />
-                 <em className="font-semibold italic text-caramel">Cheese comes first.</em>
+                <em className="font-semibold italic text-caramel">Discover six bold flavors!</em>
               </h1>
               <p className="mx-auto mt-5 max-w-[46ch] text-pretty text-cocoa/70">
-                 Scroll through six bold wafer packs, starting with the iconic
-                 creamy cheese flavor.
+                <strong className="font-semibold text-cocoa">{cheese.name}.</strong>{" "}
+                {cheese.description}
               </p>
               <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">
                 ↓ scroll
@@ -104,14 +106,14 @@ export function WaferSite() {
           </section>
 
           {/* Flavors */}
-          {FLAVORS.map((f, idx) => {
+          {FLAVORS.slice(1).map((f, idx) => {
             const i = idx + 1;
             const textRight = idx % 2 === 0; // product on the left → copy on the right
             return (
               <section
                 key={f.id}
                 id={`section-${i}`}
-                className="flex h-screen items-center px-6 sm:px-16"
+                className="flex h-screen items-start px-6 pt-28 sm:items-center sm:px-16 sm:pt-0"
               >
                 <div
                   className={`mx-auto flex w-full max-w-6xl ${
@@ -123,7 +125,7 @@ export function WaferSite() {
                     style={{ opacity: opacityFor(i), transform: `translateY(${shiftFor(i)}px)` }}
                   >
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">
-                       Flavor {String(idx + 1).padStart(2, "0")} / {String(FLAVORS.length).padStart(2, "0")}
+                       Flavor {String(idx + 2).padStart(2, "0")} / {String(FLAVORS.length).padStart(2, "0")}
                     </span>
                     <div className="mt-3 flex items-center gap-2">
                       <span
@@ -148,7 +150,10 @@ export function WaferSite() {
            <section id={`section-${SECTION_COUNT - 1}`} className="flex h-screen items-end justify-center px-6 pb-[18vh]">
             <div
               className="text-center"
-              style={{ opacity: opacityFor(5), transform: `translateY(${shiftFor(5)}px)` }}
+              style={{
+                opacity: opacityFor(SECTION_COUNT - 1),
+                transform: `translateY(${shiftFor(SECTION_COUNT - 1)}px)`,
+              }}
             >
               <h2 className="font-display text-4xl font-black tracking-tight text-cocoa sm:text-6xl">
                 Grab a pack.

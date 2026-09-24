@@ -85,12 +85,12 @@ export const FLAVORS: Flavor[] = [
   },
 ];
 
-export const SECTION_COUNT = FLAVORS.length + 2;
+export const SECTION_COUNT = FLAVORS.length + 1;
 
 /** Scene background tint per scroll section (hero, 4 flavors, outro). */
 export const SECTION_BG: string[] = [
   FLAVORS[0]?.bg ?? "#fff4b8",
-  ...FLAVORS.map((f) => f.bg),
+  ...FLAVORS.slice(1).map((f) => f.bg),
   "#fbf1de",
 ];
 
@@ -113,7 +113,7 @@ export const STATIONS: Station[] = Array.from({ length: SECTION_COUNT }, (_, ind
   const z = index === SECTION_COUNT - 1 ? -(index * 10 + 2) : -index * 10;
   const side = index > 0 && index < SECTION_COUNT - 1 ? (index % 2 ? -2.2 : 2.2) : 0;
   return {
-    pos: [side, 0, z],
+    pos: [side, index === 0 ? -1.35 : 0, z],
     cam: [side === 0 ? 0 : -side * 0.2, 1.15, z + 7.2],
     look: [side * 0.55, 0.1, z],
   };

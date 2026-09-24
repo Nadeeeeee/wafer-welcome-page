@@ -188,7 +188,7 @@ export function WaferScene() {
       <CameraRig />
       <CrumbField />
 
-      {/* Hero: signature vanilla stack, sits low-center under the headline */}
+      {/* Opening product: Creamy Cheese is flavor one, not a decorative duplicate. */}
       <ProductStop
         station={firstStation}
         flavor={cheese}
@@ -197,7 +197,7 @@ export function WaferScene() {
       />
 
       {/* Product stops */}
-      {FLAVORS.map((flavor, index) => {
+      {FLAVORS.slice(1).map((flavor, index) => {
         const station = STATIONS[index + 1];
         return station ? (
           <ProductStop
