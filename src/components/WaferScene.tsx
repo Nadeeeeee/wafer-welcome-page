@@ -120,13 +120,25 @@ function CrumbField() {
 function ProductStop({
   station,
   flavor,
+  sectionIndex,
+  scale = 1,
 }: {
   station: (typeof STATIONS)[number];
   flavor: Flavor;
+  sectionIndex: number;
+  scale?: number;
 }) {
+  const group = useRef<THREE.Group>(null);
+
+  useFrame(() => {
+    if (!group.current) return;
+    const currentSection = scrollState.progress * (STATIONS.length - 1);
+    group.current.visible = Math.abs(currentSection - sectionIndex) < 0.9;
+  });
+
   return (
-    <group position={station.pos}>
-      <ProductPack flavor={flavor} />
+    <group ref={group} position={station.pos}>
+      <ProductPack flavor={flavor} scale={scale} />
     </group>
   );
 }
@@ -157,12 +169,22 @@ export function WaferScene() {
       <ProductStop
         station={firstStation}
         flavor={cheese}
+        sectionIndex={0}
+        scale={0.9}
       />
 
       {/* Product stops */}
       {FLAVORS.map((flavor, index) => {
         const station = STATIONS[index + 1];
-        return station ? <ProductStop key={flavor.id} station={station} flavor={flavor} /> : null;
+        return station ? (
+          <ProductStop
+            key={flavor.id}
+            station={station}
+            flavor={flavor}
+            sectionIndex={index + 1}
+            scale={0.9}
+          />
+        ) : null;
       })}
 
       {/* Outro: a fan of the range */}

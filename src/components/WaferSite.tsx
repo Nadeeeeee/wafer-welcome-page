@@ -48,7 +48,7 @@ export function WaferSite() {
             href="#section-0"
             className="font-display text-lg font-bold tracking-tight text-cocoa"
           >
-            Snap &amp; Crumble<span className="text-caramel">.</span>
+            Nabati Wafers<span className="text-caramel">.</span>
           </a>
           <div className="flex items-center gap-7 text-sm font-medium text-cocoa/80">
             <a href="#section-1" className="hidden transition-colors hover:text-caramel sm:block">
