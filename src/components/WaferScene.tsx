@@ -160,9 +160,10 @@ export function WaferScene() {
       />
 
       {/* Product stops */}
-      {FLAVORS.map((f, idx) => (
-        STATIONS[idx + 1] ? <ProductStop key={f.id} station={STATIONS[idx + 1]} flavor={f} /> : null
-      ))}
+      {FLAVORS.map((flavor, index) => {
+        const station = STATIONS[index + 1];
+        return station ? <ProductStop key={flavor.id} station={station} flavor={flavor} /> : null;
+      })}
 
       {/* Outro: a fan of the range */}
       <group position={outroStation.pos}>
