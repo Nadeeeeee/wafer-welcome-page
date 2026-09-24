@@ -76,7 +76,7 @@ export interface Station {
  * frame and the DOM copy can own the other side.
  */
 export const STATIONS: Station[] = [
-  { pos: [0, 0, 0], cam: [0, 1.5, 6.8], look: [0, 1.15, 0] },
+  { pos: [0, 0, 0], cam: [0, 1.6, 8.6], look: [0, 0.85, 0] },
   { pos: [-2.4, 0, -10], cam: [0.5, 0.9, -5.4], look: [-1.1, 0.1, -10] },
   { pos: [2.4, 0, -20], cam: [-0.5, 0.9, -15.4], look: [1.1, 0.1, -20] },
   { pos: [-2.4, 0, -30], cam: [0.5, 0.9, -25.4], look: [-1.1, 0.1, -30] },
