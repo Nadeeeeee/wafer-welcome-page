@@ -73,7 +73,7 @@ function CameraRig() {
     () => ({
       camTarget: new THREE.Vector3(),
       lookTarget: new THREE.Vector3(),
-      lookCurrent: new THREE.Vector3(0, 1.15, 0),
+      lookCurrent: new THREE.Vector3(0, 0.85, 0),
       bg: new THREE.Color(),
     }),
     [],
