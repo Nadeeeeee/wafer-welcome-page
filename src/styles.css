@@ -142,3 +142,26 @@
     color: var(--color-foreground);
   }
 }
+
+/* ---- Snap & Crumble brand tokens ---- */
+
+:root {
+  --cream: #fbf1de;
+  --cocoa: #2a170a;
+  --caramel: #c87b2e;
+  --berry: #e05a74;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cocoa: var(--cocoa);
+  --color-caramel: var(--caramel);
+  --color-berry: var(--berry);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
