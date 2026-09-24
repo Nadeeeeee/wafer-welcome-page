@@ -6,4 +6,5 @@
 - [x] DOM overlay: hero, per-flavor copy sections, outro CTA, nav, progress dots
 - [x] Verify in browser via Playwright screenshots (scene visible, no console errors)
 - [x] Replace procedural wafers with six supplied product renders, led by Creamy Cheese
+- [x] Merge the opening and Creamy Cheese stop so the first scroll advances to Strawberry
 

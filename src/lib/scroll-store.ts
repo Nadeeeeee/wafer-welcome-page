@@ -85,12 +85,12 @@ export const FLAVORS: Flavor[] = [
   },
 ];
 
-export const SECTION_COUNT = FLAVORS.length + 2;
+export const SECTION_COUNT = FLAVORS.length + 1;
 
 /** Scene background tint per scroll section (hero, 4 flavors, outro). */
 export const SECTION_BG: string[] = [
   FLAVORS[0]?.bg ?? "#fff4b8",
-  ...FLAVORS.map((f) => f.bg),
+  ...FLAVORS.slice(1).map((f) => f.bg),
   "#fbf1de",
 ];
 
