@@ -141,7 +141,10 @@ function ProductStop({
     if (openingStation) {
       const blend = smoothstep(currentSection);
       const isMobile = state.size.width < 640;
-      const detailX = isMobile ? station.pos[0] : 1.5;
+      const detailScale = isMobile ? 1 : Math.min(1, 900 / state.size.height);
+      const visibleWidth = 2 * Math.tan(THREE.MathUtils.degToRad(45 / 2)) * 7.2 * state.size.width / state.size.height;
+      const packWidth = 5.4 * scale * detailScale;
+      const detailX = isMobile ? station.pos[0] : Math.min(1.5, Math.max(0, (visibleWidth - packWidth) / 2 - 0.15));
       const detailY = isMobile ? 0 : station.pos[1];
       group.current.position.set(
         THREE.MathUtils.lerp(openingStation.pos[0], detailX, blend),
@@ -149,7 +152,6 @@ function ProductStop({
         THREE.MathUtils.lerp(openingStation.pos[2], station.pos[2], blend),
       );
       // Preserve the opening composition, then fit the detail pack beside the copy.
-      const detailScale = isMobile ? 1 : Math.min(1, 900 / state.size.height);
       group.current.scale.setScalar(THREE.MathUtils.lerp(1, detailScale, blend));
     }
   });
