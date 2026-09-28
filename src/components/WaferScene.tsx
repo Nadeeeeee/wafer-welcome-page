@@ -49,7 +49,7 @@ function CameraRig() {
     rig.camTarget.set(
       THREE.MathUtils.lerp(A.cam[0], B.cam[0], f),
       THREE.MathUtils.lerp(A.cam[1], B.cam[1], f),
-      THREE.MathUtils.lerp(A.cam[2], B.cam[2], f),
+      THREE.MathUtils.lerp(A.cam[2], B.cam[2], f) + (state.size.width < 640 ? 7 : 0),
     );
     state.camera.position.lerp(rig.camTarget, lerpK(5, delta));
 

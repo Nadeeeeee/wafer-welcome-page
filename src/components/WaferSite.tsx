@@ -114,7 +114,7 @@ export function WaferSite() {
                   }`}
                 >
                   <div
-                    className={idx === 0 ? "max-w-sm" : "max-w-sm"}
+                    className="max-w-sm"
                     style={{ opacity: opacityFor(i), transform: `translateY(${shiftFor(i)}px)` }}
                   >
                     <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">

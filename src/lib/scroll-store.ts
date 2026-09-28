@@ -112,7 +112,7 @@ export const STATIONS: Station[] = Array.from({ length: SECTION_COUNT }, (_, ind
   const z = index === SECTION_COUNT - 1 ? -((index - 1) * 10 + 2) : -Math.max(0, index - 1) * 10;
   const side = index > 1 && index < SECTION_COUNT - 1 ? (index % 2 ? 2.2 : -2.2) : 0;
   return {
-    pos: [side, index === 0 ? -1.35 : 0, z],
+    pos: [side, index === 0 ? -1.35 : index === 1 ? -0.95 : 0, z],
     cam: [side === 0 ? 0 : -side * 0.2, 1.15, z + 7.2],
     look: [side * 0.55, index === 0 ? 0.1 : 0, z],
   };
