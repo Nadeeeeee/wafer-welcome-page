@@ -49,7 +49,7 @@ function CameraRig() {
     rig.camTarget.set(
       THREE.MathUtils.lerp(A.cam[0], B.cam[0], f),
       THREE.MathUtils.lerp(A.cam[1], B.cam[1], f),
-      THREE.MathUtils.lerp(A.cam[2], B.cam[2], f),
+      THREE.MathUtils.lerp(A.cam[2], B.cam[2], f) + (state.size.width < 640 ? 7 : 0),
     );
     state.camera.position.lerp(rig.camTarget, lerpK(5, delta));
 
@@ -122,18 +122,30 @@ function ProductStop({
   flavor,
   sectionIndex,
   scale = 1,
+  openingStation,
 }: {
   station: (typeof STATIONS)[number];
   flavor: Flavor;
   sectionIndex: number;
   scale?: number;
+  openingStation?: (typeof STATIONS)[number];
 }) {
   const group = useRef<THREE.Group>(null);
 
   useFrame(() => {
     if (!group.current) return;
     const currentSection = scrollState.progress * (STATIONS.length - 1);
-    group.current.visible = Math.round(currentSection) === sectionIndex;
+    group.current.visible = sectionIndex === 1
+      ? Math.round(currentSection) <= 1
+      : Math.round(currentSection) === sectionIndex;
+    if (openingStation) {
+      const blend = smoothstep(currentSection);
+      group.current.position.set(
+        THREE.MathUtils.lerp(openingStation.pos[0], station.pos[0], blend),
+        THREE.MathUtils.lerp(openingStation.pos[1], station.pos[1], blend),
+        THREE.MathUtils.lerp(openingStation.pos[2], station.pos[2], blend),
+      );
+    }
   });
 
   return (
@@ -169,8 +181,9 @@ function ProductFinale({ station }: { station: (typeof STATIONS)[number] }) {
 export function WaferScene() {
   const cheese = FLAVORS[0];
   const firstStation = STATIONS[0];
+  const cheeseStation = STATIONS[1];
   const outroStation = STATIONS[STATIONS.length - 1];
-  if (!cheese || !firstStation || !outroStation) return null;
+  if (!cheese || !firstStation || !cheeseStation || !outroStation) return null;
 
   return (
     <Canvas
@@ -188,23 +201,24 @@ export function WaferScene() {
       <CameraRig />
       <CrumbField />
 
-      {/* Opening product: Creamy Cheese is flavor one, not a decorative duplicate. */}
+      {/* The one cheese pack rises from the opening into its detail stop. */}
       <ProductStop
-        station={firstStation}
+        station={cheeseStation}
+        openingStation={firstStation}
         flavor={cheese}
-        sectionIndex={0}
+        sectionIndex={1}
         scale={0.9}
       />
 
       {/* Product stops */}
       {FLAVORS.slice(1).map((flavor, index) => {
-        const station = STATIONS[index + 1];
+        const station = STATIONS[index + 2];
         return station ? (
           <ProductStop
             key={flavor.id}
             station={station}
             flavor={flavor}
-            sectionIndex={index + 1}
+            sectionIndex={index + 2}
             scale={0.9}
           />
         ) : null;

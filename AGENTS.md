@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the opening and first Creamy Cheese detail stop on one shared 3D product group; this lets scrolling reposition the same pack without a duplicate render.

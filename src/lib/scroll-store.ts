@@ -85,12 +85,12 @@ export const FLAVORS: Flavor[] = [
   },
 ];
 
-export const SECTION_COUNT = FLAVORS.length + 1;
+export const SECTION_COUNT = FLAVORS.length + 2;
 
-/** Scene background tint per scroll section (hero, 4 flavors, outro). */
+/** Scene background tint per scroll section (opening, six flavors, outro). */
 export const SECTION_BG: string[] = [
   FLAVORS[0]?.bg ?? "#fff4b8",
-  ...FLAVORS.slice(1).map((f) => f.bg),
+  ...FLAVORS.map((f) => f.bg),
   "#fbf1de",
 ];
 
@@ -105,17 +105,16 @@ export interface Station {
 
 /**
  * Camera + product stations along the scroll path.
- * Hero stack at origin, four flavors alternating left/right, outro trio last.
- * The look point is offset from the product so it sits on one side of the
- * frame and the DOM copy can own the other side.
+ * The opening and first detail stop share the same cheese product and depth.
+ * Later flavors alternate left and right, followed by the outro trio.
  */
 export const STATIONS: Station[] = Array.from({ length: SECTION_COUNT }, (_, index) => {
-  const z = index === SECTION_COUNT - 1 ? -(index * 10 + 2) : -index * 10;
-  const side = index > 0 && index < SECTION_COUNT - 1 ? (index % 2 ? -2.2 : 2.2) : 0;
+  const z = index === SECTION_COUNT - 1 ? -((index - 1) * 10 + 2) : -Math.max(0, index - 1) * 10;
+  const side = index > 1 && index < SECTION_COUNT - 1 ? (index % 2 ? 2.2 : -2.2) : 0;
   return {
-    pos: [side, index === 0 ? -1.35 : 0, z],
+    pos: [side, index === 0 ? -1.35 : index === 1 ? -0.95 : 0, z],
     cam: [side === 0 ? 0 : -side * 0.2, 1.15, z + 7.2],
-    look: [side * 0.55, 0.1, z],
+    look: [side * 0.55, index === 0 ? 0.1 : 0, z],
   };
 });
 
