@@ -7,5 +7,5 @@
 - [x] Verify in browser via Playwright screenshots (scene visible, no console errors)
 - [x] Replace procedural wafers with six supplied product renders, led by Creamy Cheese
 - [x] Merge the opening and Creamy Cheese stop so the first scroll advances to Strawberry
-- [ ] Keep the opening cheese pack as a teaser, then center that same pack and reveal its details on the first scroll
+- [x] Keep the opening cheese pack as a teaser, then center that same pack and reveal its details on the first scroll
 
