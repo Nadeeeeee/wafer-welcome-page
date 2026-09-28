@@ -132,7 +132,7 @@ function ProductStop({
 }) {
   const group = useRef<THREE.Group>(null);
 
-  useFrame(() => {
+  useFrame((state) => {
     if (!group.current) return;
     const currentSection = scrollState.progress * (STATIONS.length - 1);
     group.current.visible = sectionIndex === 1
@@ -140,11 +140,17 @@ function ProductStop({
       : Math.round(currentSection) === sectionIndex;
     if (openingStation) {
       const blend = smoothstep(currentSection);
+      const isMobile = state.size.width < 640;
+      const detailX = isMobile ? station.pos[0] : 1.5;
+      const detailY = isMobile ? 0 : station.pos[1];
       group.current.position.set(
-        THREE.MathUtils.lerp(openingStation.pos[0], station.pos[0], blend),
-        THREE.MathUtils.lerp(openingStation.pos[1], station.pos[1], blend),
+        THREE.MathUtils.lerp(openingStation.pos[0], detailX, blend),
+        THREE.MathUtils.lerp(openingStation.pos[1], detailY, blend),
         THREE.MathUtils.lerp(openingStation.pos[2], station.pos[2], blend),
       );
+      // Preserve the opening composition, then fit the detail pack beside the copy.
+      const detailScale = isMobile ? 1 : Math.min(1, 900 / state.size.height);
+      group.current.scale.setScalar(THREE.MathUtils.lerp(1, detailScale, blend));
     }
   });
 
