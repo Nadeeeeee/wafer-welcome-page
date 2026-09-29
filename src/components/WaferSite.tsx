@@ -87,7 +87,7 @@ export function WaferSite() {
               <span className="inline-flex items-center gap-2 rounded-full bg-cocoa/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-cocoa">
                 Nabati Wafers · Six flavors
               </span>
-              <h1 className="mt-5 font-display text-4xl font-black leading-[0.95] tracking-tight text-cocoa sm:text-7xl">
+              <h1 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight text-cocoa sm:text-6xl">
                 Meet the crunch.
                 <br />
                 <em className="font-semibold italic text-caramel">Discover six bold flavors!</em>
@@ -129,7 +129,7 @@ export function WaferSite() {
                         {f.tag}
                       </span>
                     </div>
-                    <h2 className="mt-3 font-display text-4xl font-black tracking-tight text-cocoa sm:text-5xl">
+                    <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-cocoa sm:text-4xl">
                       {f.name}
                     </h2>
                     <p className="mt-4 text-pretty text-cocoa/70">{f.description}</p>
@@ -148,7 +148,7 @@ export function WaferSite() {
                 transform: `translateY(${shiftFor(SECTION_COUNT - 1)}px)`,
               }}
             >
-              <h2 className="font-display text-4xl font-black tracking-tight text-cocoa sm:text-6xl">
+              <h2 className="font-display text-3xl font-bold tracking-tight text-cocoa sm:text-5xl">
                 Grab a pack.
               </h2>
               <p className="mx-auto mt-4 max-w-[40ch] text-pretty text-cocoa/70">
