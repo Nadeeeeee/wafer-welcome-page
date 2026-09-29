@@ -136,7 +136,7 @@ function ProductStop({
     if (!group.current) return;
     const currentSection = scrollState.progress * (STATIONS.length - 1);
     group.current.visible = sectionIndex === 1
-      ? Math.round(currentSection) <= 1
+      ? currentSection >= 0.48 && Math.round(currentSection) <= 1
       : Math.round(currentSection) === sectionIndex;
     if (openingStation) {
       const blend = smoothstep(currentSection);
@@ -163,35 +163,11 @@ function ProductStop({
   );
 }
 
-function ProductFinale({ station }: { station: (typeof STATIONS)[number] }) {
-  const group = useRef<THREE.Group>(null);
-
-  useFrame(() => {
-    if (!group.current) return;
-    const currentSection = scrollState.progress * (STATIONS.length - 1);
-    group.current.visible = Math.round(currentSection) === STATIONS.length - 1;
-  });
-
-  return (
-    <group ref={group} position={station.pos}>
-      {FLAVORS.slice(0, 3).map((flavor, index) => (
-        <group
-          key={flavor.id}
-          position={[(index - 1) * 2.3, index === 1 ? 0.7 : -0.25, index * -0.12]}
-        >
-          <ProductPack flavor={flavor} scale={0.62} />
-        </group>
-      ))}
-    </group>
-  );
-}
-
 export function WaferScene() {
   const cheese = FLAVORS[0];
   const firstStation = STATIONS[0];
   const cheeseStation = STATIONS[1];
-  const outroStation = STATIONS[STATIONS.length - 1];
-  if (!cheese || !firstStation || !cheeseStation || !outroStation) return null;
+  if (!cheese || !firstStation || !cheeseStation) return null;
 
   return (
     <Canvas
@@ -209,7 +185,7 @@ export function WaferScene() {
       <CameraRig />
       <CrumbField />
 
-      {/* The one cheese pack rises from the opening into its detail stop. */}
+      {/* The opening is product-free; the shared cheese pack enters on the first scroll. */}
       <ProductStop
         station={cheeseStation}
         openingStation={firstStation}
@@ -231,9 +207,6 @@ export function WaferScene() {
           />
         ) : null;
       })}
-
-      {/* Outro: a fan of the range */}
-      <ProductFinale station={outroStation} />
 
       <Environment resolution={64}>
         <Lightformer

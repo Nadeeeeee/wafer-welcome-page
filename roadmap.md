@@ -9,4 +9,5 @@
 - [x] Merge the opening and Creamy Cheese stop so the first scroll advances to Strawberry
 - [x] Keep the opening cheese pack as a teaser, then center that same pack and reveal its details on the first scroll
 - [ ] Align the first Creamy Cheese detail pack with the camera's screen center on desktop and mobile
+- [ ] Make the opening product-free, reveal the vertical wafer lineup on scroll, and show all nine products after the six wafer details
 
