@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { WaferScene } from "@/components/WaferScene";
-import { FLAVORS, SECTION_COUNT, scrollState } from "@/lib/scroll-store";
+import { FLAVORS, MORE_PRODUCTS, SECTION_COUNT, scrollState } from "@/lib/scroll-store";
 
 const FADE_K = 1.4;
 
@@ -62,20 +62,27 @@ export function WaferSite() {
           </div>
         </nav>
 
-        {/* Section progress dots */}
-        <div className="absolute right-5 top-1/2 z-20 hidden -translate-y-1/2 flex-col gap-3 sm:flex">
-          {Array.from({ length: SECTION_COUNT }).map((_, i) => (
-            <span
-              key={i}
-              className={`size-2 rounded-full transition-colors duration-300 ${
-                i === active ? "bg-cocoa" : "bg-cocoa/25"
-              }`}
-            />
+        {/* Vertical product lineup appears after the opening. */}
+        <aside
+          aria-label="Wafer lineup"
+          className={`pointer-events-auto fixed right-2 top-1/2 z-30 flex -translate-y-1/2 flex-col gap-1 border-l border-cocoa/20 pl-2 transition-opacity duration-500 sm:right-5 sm:gap-2 sm:pl-3 ${active > 0 && active < SECTION_COUNT - 1 ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        >
+          {FLAVORS.map((flavor, idx) => (
+            <a
+              key={flavor.id}
+              href={`#section-${idx + 1}`}
+              aria-label={`View ${flavor.name}`}
+              aria-current={active === idx + 1 ? "step" : undefined}
+              title={flavor.name}
+              className={`flex size-10 items-center justify-center border-l-2 transition-all duration-300 sm:size-14 ${active === idx + 1 ? "border-caramel opacity-100" : "border-transparent opacity-45 hover:opacity-100"}`}
+            >
+              <img src={flavor.image} alt="" className="max-h-8 max-w-8 object-contain sm:max-h-12 sm:max-w-12" />
+            </a>
           ))}
-        </div>
+        </aside>
 
         <main>
-          {/* Hero */}
+          {/* Product-free opening */}
           <section
             id="section-0"
             className="flex h-screen items-start justify-center px-6 pt-[14vh]"
@@ -84,13 +91,10 @@ export function WaferSite() {
               className="max-w-2xl text-center"
               style={{ opacity: opacityFor(0), transform: `translateY(${shiftFor(0)}px)` }}
             >
-              <span className="inline-flex items-center gap-2 rounded-full bg-cocoa/10 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-cocoa">
-                Nabati Wafers · Six flavors
-              </span>
               <h1 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight text-cocoa sm:text-6xl">
                 Meet the crunch.
                 <br />
-                <em className="font-semibold italic text-caramel">Discover six bold flavors!</em>
+                <em className="font-semibold italic text-caramel">Discover fun flavors!</em>
               </h1>
               <div className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-cocoa/50">
                 ↓ scroll
@@ -139,25 +143,31 @@ export function WaferSite() {
             );
           })}
 
-          {/* Outro */}
-           <section id={`section-${SECTION_COUNT - 1}`} className="flex h-screen items-end justify-center px-6 pb-[18vh]">
+          {/* Entire range, including the three newly added products */}
+           <section id={`section-${SECTION_COUNT - 1}`} className="flex min-h-screen items-center justify-center px-4 py-20 sm:px-10">
             <div
-              className="text-center"
+               className="mx-auto w-full max-w-5xl text-center"
               style={{
                 opacity: opacityFor(SECTION_COUNT - 1),
                 transform: `translateY(${shiftFor(SECTION_COUNT - 1)}px)`,
               }}
             >
-              <h2 className="font-display text-3xl font-bold tracking-tight text-cocoa sm:text-5xl">
-                Grab a pack.
+               <h2 className="font-display text-3xl font-bold text-cocoa sm:text-5xl">
+                 Ready to explore more?
               </h2>
-              <p className="mx-auto mt-4 max-w-[40ch] text-pretty text-cocoa/70">
-                 Six flavors, one impossible snap. Find us in the cookie aisle —
-                or we'll bring the crunch to you.
-              </p>
+               <div className="mt-6 grid grid-cols-3 items-end gap-x-2 gap-y-5 sm:mt-10 sm:gap-x-6 sm:gap-y-8">
+                 {[...FLAVORS, ...MORE_PRODUCTS].map((product) => (
+                   <div key={product.id} className="flex min-w-0 flex-col items-center justify-end gap-2">
+                     <div className="flex h-20 w-full items-center justify-center sm:h-36">
+                       <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain drop-shadow-md" />
+                     </div>
+                     <span className="text-center text-[10px] font-semibold leading-tight text-cocoa sm:text-sm">{product.name}</span>
+                   </div>
+                 ))}
+               </div>
               <a
                 href="#section-0"
-                className="pointer-events-auto mt-8 inline-flex rounded-full bg-cocoa px-7 py-3 text-sm font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-caramel"
+                 className="pointer-events-auto mt-8 inline-flex rounded-full bg-cocoa px-7 py-3 text-sm font-semibold text-cream transition-all hover:-translate-y-0.5 hover:bg-caramel"
               >
                 Back to the top
               </a>
