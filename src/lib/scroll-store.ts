@@ -4,6 +4,9 @@ import sweetPotatoAsset from "@/assets/products/gogumalava-sweet-potato.png.asse
 import chocolateAsset from "@/assets/products/richoco-chocolate.png.asset.json";
 import milkVanillaAsset from "@/assets/products/richoco-milk-vanilla.png.asset.json";
 import cookiesCreamAsset from "@/assets/products/richoco-cookies-cream.png.asset.json";
+import bigRollsCheeseAsset from "@/assets/products/big-rolls-cheese.png.asset.json";
+import bigRollsChocolateAsset from "@/assets/products/big-rolls-chocolate.png.asset.json";
+import nextarGogumaAsset from "@/assets/products/nextar-goguma.png.asset.json";
 
 export interface Flavor {
   id: string;
@@ -14,6 +17,7 @@ export interface Flavor {
   accent: string;
   bg: string;
   image: string;
+  imageShape?: "square" | "wide";
 }
 
 export const FLAVORS: Flavor[] = [
@@ -84,6 +88,12 @@ export const FLAVORS: Flavor[] = [
     image: cookiesCreamAsset.url,
   },
 ];
+
+export const MORE_PRODUCTS = [
+  { id: "big-rolls-cheese", name: "Big Rolls Cheese", image: bigRollsCheeseAsset.url, imageShape: "square" },
+  { id: "big-rolls-chocolate", name: "Big Rolls Chocolate", image: bigRollsChocolateAsset.url, imageShape: "square" },
+  { id: "nextar-goguma", name: "Nextar Goguma", image: nextarGogumaAsset.url, imageShape: "wide" },
+] as const;
 
 export const SECTION_COUNT = FLAVORS.length + 2;
 
