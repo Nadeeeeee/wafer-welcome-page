@@ -157,7 +157,7 @@
   --color-cocoa: var(--cocoa);
   --color-caramel: var(--caramel);
   --color-berry: var(--berry);
-  --font-display: "Space Mono", ui-monospace, monospace;
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
