@@ -157,8 +157,8 @@
   --color-cocoa: var(--cocoa);
   --color-caramel: var(--caramel);
   --color-berry: var(--berry);
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Mono", ui-monospace, monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
